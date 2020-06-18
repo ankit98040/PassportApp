@@ -1,0 +1,28 @@
+<%- include ('includes/header') %>
+
+<div class="container login-page">
+    <form class="form-signin">
+
+  <h1 class="h3 mb-3 font-weight-normal text-center">User Login</h1>
+
+  <label for="inputEmail" class="sr-only">Username</label>
+
+  <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+<br>
+  <label class="sr-only" >Password</label>
+
+  <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+
+  <p>No Account? <a href="/users/register">Register</a></p>
+  <button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+  </form>
+  </div>
+
+<%- include ('includes/footer') %>

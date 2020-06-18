@@ -1,0 +1,55 @@
+<%- include ('includes/header') %>
+
+<div class="container reg-page">
+
+	<% if (locals.errors) { %>
+		<% errors.forEach(function(error){ %>
+			<div class="alert alert-danger"><%= error.msg %></div>
+
+		<% }) %>
+
+	<% } %>
+
+
+    <form method='post' action="/users/register" class="form-signin">
+
+  <h1 class="h3 mb-3 font-weight-normal text-center">User Registration</h1>
+
+  <label class="sr-only">Name</label>
+
+  <input type="text" name="name" value="<%= (!!locals.name)?name:'' %>" class="form-control" placeholder="Name" required autofocus>
+<br>
+
+  <label class="sr-only">Email</label>
+
+  <input type="text" name="email" class="form-control" value="<%= (!!locals.email)?email:'' %>" placeholder="Email" required autofocus>
+<br>
+
+  <label class="sr-only">Username</label>
+
+  <input type="text" name="username" class="form-control" value="<%= (!!locals.username)?username:'' %>" placeholder="Username" required autofocus>
+<br>
+  <label class="sr-only" >Password</label>
+
+  <input type="password" name="password" value="<%= (!!locals.password)?password:'' %>" class="form-control" placeholder="Password" required>
+
+<br>
+  <label class="sr-only" >Confirm Password</label>
+
+  <input type="password" name="password2" value="<%= (!!locals.password2)?password2:'' %>" class="form-control" placeholder="Password Confirm" required>
+
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+
+  <p>Already Registered ? <a href="/users/login">Login</a></p>
+  <button class="btn btn-lg btn-danger btn-block" type="submit">Register</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+  </form>
+  </div>
+
+
+<%- include ('includes/footer') %>
