@@ -9,7 +9,7 @@ var bcrypt = require('bcryptjs');
 //for authentication
 var passport = require('passport');
 
-var LocalStrategy = require('passport-local').Stratrgy;
+var LocalStrategy = require('passport-local').Strategy;
 
 // Login Page - GET
 router.get('/login', function(req, res){
@@ -80,9 +80,53 @@ router.post('/register', function(req, res){
 				});
 			});
 		});
-
-		
 	}
 });
+
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+ db.users.findOne({_id: mongojs.ObjectId(id)}, function(err, user){
+ 	done(err, user);
+ });
+});
+
+
+passport.use(new LocalStrategy(
+		function(username, password, done){
+			db.users.findOne({username: username}, function(err,user){
+				if (err){
+					return done(err);
+				}
+				if(!user){
+					return done(null, false, {message: 'Incorrect Username'});
+				}
+
+				bcrypt.compare(password, user.password, function(err, isMatch){
+					if(err){
+						return done(err);
+					}
+					if(isMatch){
+						return done(null, user);
+					} else {
+						return done(null, false, {message: 'Incorrect Password'});
+					}
+				});
+			});
+		}
+	));
+
+// Login POST
+//local strategy
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/users/login',
+                                   failureFlash: 'Invalid Username or Password' }), 
+  	function(req, res){
+  		console.log('Auth Successfull');
+  		res.redirect('/');
+  });
 
 module.exports = router;

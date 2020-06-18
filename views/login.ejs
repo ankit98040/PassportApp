@@ -1,7 +1,10 @@
 <%- include ('includes/header') %>
 
 <div class="container login-page">
-    <form class="form-signin">
+
+	<%- messages() %>
+
+    <form class="form-signin" method="post" action="/users/login">
 
   <h1 class="h3 mb-3 font-weight-normal text-center">User Login</h1>
 
